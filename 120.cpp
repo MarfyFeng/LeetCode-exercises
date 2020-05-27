@@ -7,24 +7,19 @@ class Solution {
 private:
 
     int res;
+    vector<vector<int>> sums;
 
-    void FindMinimum(vector<vector<int>>& triangle, int x, int y, int& sum){
+    int FindMinimum(vector<vector<int>>& triangle, int x, int y){
 
-        if(x == triangle.size()){
-            cout<<"res = "<<res<<" sum = "<<sum<<endl;
-            if(sum < res)
-                res = sum;
-            return;
+        if(x == triangle.size()-1){
+            memcpy(&sums[x][0], &triangle[x][0], triangle[x].size());
+            return sums[x][y];
         }
 
-        cout<<"res = "<<res<<" sum = "<<sum<<" triangle[ "<<x<<", "<<y<<" ] : "<<triangle[x][y]<<endl;
-        for(int i = 0; i < 2; i++){
-            sum += triangle[x][y];
-            FindMinimum(triangle, x+1, y+i, sum);
-            sum -= triangle[x][y];
-        }
-
-        return;
+        if(FindMinimum(triangle, x+1, y) < FindMinimum(triangle, x+1, y+1))
+            sums[x][y] = triangle[x][y] + FindMinimum(triangle, x+1, y+i);
+ 
+        return sums[x][y];
     }
 
 public:
@@ -34,9 +29,9 @@ public:
         for(int i = 0; i < triangle.size(); i++)
             res += triangle[i][0];
         
-        int sum = 0;
+        sums.clear();
 
-        FindMinimum(triangle, 0, 0, sum);
+        FindMinimum(triangle, 0, 0);
 
         return res;
     }
