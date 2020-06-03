@@ -16,6 +16,9 @@ private:
 
     void FindPaths(int m, int n, int x, int y){
 
+        if(x == m || y == n)
+            return;
+
         if(x == m-1 && y == n-1){
             cout<<"get"<<endl;
             res++;
@@ -27,7 +30,8 @@ private:
 
         status[x][y] = true;
         for(int i = 0; i < 2; i++){
-            // cout<<direction[i][0]<<' '<<direction[i][1]<<endl;
+            cout<<x<<' '<<y<<' ';
+            cout<<direction[i][0]<<' '<<direction[i][1]<<endl;
             FindPaths(m, n, x+direction[i][0], y+direction[i][1]);
         }
         status[x][y] = false;
@@ -48,6 +52,6 @@ public:
 
 int main(){
 
-    cout<<Solution().uniquePaths(3,2)<<endl;
+    cout<<Solution().uniquePaths(7,3)<<endl;
     return 0;
 }
