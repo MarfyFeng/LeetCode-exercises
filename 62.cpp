@@ -16,6 +16,9 @@ private:
     int FindPaths(int m, int n, int x, int y){
         
         if(x == m || y == n)
+            return 0;
+
+        if(x == m-1 && y == n-1)
             return 1;
 
         if(memo[x][y] != -1)
@@ -37,6 +40,6 @@ public:
 
 int main(){
 
-    cout<<Solution().uniquePaths(7,3)<<endl;
+    cout<<Solution().uniquePaths(3,2)<<endl;
     return 0;
 }
